@@ -37,4 +37,18 @@ class  Cell
         @ship.hit
     end
 
+    def render
+        if @fired_upon == false && @empty == true
+            "." # default empty cell
+        elsif @fired_upon == false && @empty == false
+            "S" # SHIP -cell containing a ship that hasn't been hit
+        elsif @fired_upon == true && @empty == true
+            "M" # MISS -cell containing no ship that has been hit
+        elsif @fired_upon == true && @empty == false && @ship.sunk? == false
+            "H" # HIT - cell containing a ship that has been hit
+        elsif @ship.sunk? == true
+            "X" # SUNK - cell containing a ship that has been sunk
+        end
+    
+    end
 end
