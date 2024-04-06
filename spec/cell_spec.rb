@@ -31,8 +31,43 @@ RSpec.describe Cell do
             expect(cell.empty?).to be(true)
             
             cell.place_ship(cruiser)
+            
+            expect(cell.ship).to eq(cruiser)
 
             expect(cell.empty?).to be(false)
+        end
+
+        it 'is not fired upon by default' do
+            cell = Cell.new("B4")
+            cruiser = Ship.new("Cruiser", 3)
+
+            expect(cell.fired_upon?).to be(false)
+        end
+
+        it 'it can be fired upon' do
+            cell = Cell.new("B4")
+            cruiser = Ship.new("Cruiser", 3)
+
+            expect(cell.fired_upon?).to be(false)
+
+            cell.fire_upon
+
+            expect(cell.fired_upon?).to be(true)
+        end
+
+        it 'it can be fired upon' do
+            cell = Cell.new("B4")
+            cruiser = Ship.new("Cruiser", 3)
+
+            cell.place_ship(cruiser)
+
+            expect(cell.fired_upon?).to be(false)
+            expect(cell.ship.health).to eq(3)
+
+            cell.fire_upon
+
+            expect(cell.fired_upon?).to be(true)
+            expect(cell.ship.health).to eq(2)
         end
 
 end
