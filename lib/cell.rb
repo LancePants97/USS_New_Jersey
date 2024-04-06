@@ -1,20 +1,22 @@
 class  Cell
     
-    attr_reader :coordinate,
-                :ship
+    attr_reader :coordinate
+                
+
+    attr_accessor :ship, :empty
 
     def initialize(coordinate)
         @coordinate = coordinate
         @ship = nil
-        @empty = true
+        @empty = true      
     end
 
     def empty?
-        true
+        @empty
     end
 
-    # def place_ship(ship)
-        
-    # end
+    def place_ship(ship)
+        @empty = false
+    end
 
 end

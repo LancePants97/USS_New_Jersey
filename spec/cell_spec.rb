@@ -24,14 +24,15 @@ RSpec.describe Cell do
             expect(cell.empty?).to be(true)
         end
 
-        # it 'is empty by default' do
-        #     cell = Cell.new("B4")
-        #     cruiser = Ship.new("Cruiser", 3)
+        it 'can add a ship and fill a cell' do
+            cell = Cell.new("B4")
+            cruiser = Ship.new("Cruiser", 3)
 
-        #     cell.place_ship(cruiser)
+            expect(cell.empty?).to be(true)
+            
+            cell.place_ship(cruiser)
 
-        #     expect(cell.empty?).to be(false)
-        # end
-    
+            expect(cell.empty?).to be(false)
+        end
 
 end
