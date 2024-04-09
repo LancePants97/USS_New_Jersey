@@ -95,12 +95,10 @@ RSpec.describe Cell do
 			cruiser = Ship.new("Cruiser", 3)
 
 			expect(cell_2.render).to eq('.')
-			# binding.pry
 
 			cell_2.place_ship(cruiser)
-			# binding.pry
+	
 			expect(cell_2.render).to eq('.')
-			# binding.pry
 			expect(cell_2.render(true)).to eq('S')
 		end
 
