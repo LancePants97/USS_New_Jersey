@@ -4,6 +4,7 @@ RSpec.describe Board do
 
   describe '#initialize' do
     it 'exists' do
+      A1 = cell.new
       expect(board = Board.new).to be_a(Board)
     end
   end
@@ -11,6 +12,7 @@ RSpec.describe Board do
   describe '#cells' do
     it 'has correct number of cells' do
       expect(board.cells).to eq({}) #16 key/value pairs, keys point to cell objects
+      #test that the cells to be_a cell. 
     end
   end
 
