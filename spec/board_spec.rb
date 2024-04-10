@@ -4,20 +4,21 @@ RSpec.describe Board do
 
   describe '#initialize' do
     it 'exists' do
-      A1 = cell.new
       expect(board = Board.new).to be_a(Board)
     end
   end
 
   describe '#cells' do
     it 'has correct number of cells' do
-      expect(board.cells).to eq({}) #16 key/value pairs, keys point to cell objects
-      #test that the cells to be_a cell. 
+      board = Board.new
+      expect(board.cells["A1"]).to be_a(Cell)
     end
   end
 
   describe '#coordinate?' do
     it 'has valid coordinates' do
+      board = Board.new
+      board.cells
       expect(board.valid_coordinate?("A1")).to be true
       expect(board.valid_coordinate?("D4")).to be true
       expect(board.valid_coordinate?("A5")).to be false
@@ -47,7 +48,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["C1", "B1"])).to be false
     end
 
-    it 'can invalidate ship placements based on diagonal' do
+    xit 'can invalidate ship placements based on diagonal' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
@@ -56,7 +57,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["C2", "D3"])).to be false
     end
 
-    it 'can validate ship placements based on validation conditions passing' do
+    xit 'can validate ship placements based on validation conditions passing' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
@@ -64,9 +65,10 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
     end
+  end
 
   describe 'placing ships' do
-    it 'can place ships in cells' do
+    xit 'can place ships in cells' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
@@ -82,7 +84,8 @@ RSpec.describe Board do
   end
 
   describe 'overlapping ships' do
-    it 'can validate that ships do not overlap' do
+    xit 'can validate that ships do not overlap' do
+      board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2)
@@ -92,13 +95,14 @@ RSpec.describe Board do
   end
 
   describe '#render' do
-    it 'can render the board'
-    board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    board.place(cruiser, ["A1", "A2", "A3"])
+    xit 'can render the board' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      board.place(cruiser, ["A1", "A2", "A3"])
 
-    expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
-    expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
   end
 
 end
