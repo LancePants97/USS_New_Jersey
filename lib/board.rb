@@ -78,5 +78,4 @@ class Board
       @board_hash[coordinate].empty?
     end
   end
-
 end
