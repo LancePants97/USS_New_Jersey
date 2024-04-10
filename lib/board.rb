@@ -78,4 +78,33 @@ class Board
       @board_hash[coordinate].empty?
     end
   end
+
+  def render
+    start = "  1 2 3 4 \nA "
+    all_cells = @board_hash.values.map do |cell|
+        cell.render #single cell render
+      end
+    all_cells_joined = all_cells.join(" ")
+    render_string = start + all_cells_joined #get one string of each rendered cell
+    binding.pry
+  end
+
 end
+
+  #"  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+
+    #start = "  1 2 3 4 \nA "
+    #concat each of the following lines
+    #values.render of [A1]..[A4] aka all_cells[0], [1], [2], [3]
+    #\nB
+    #values.render of [B1]..[B4]
+    #\nC
+    #values.render of [C1]..[C4]
+    #\nD
+    #values.render of [D1]..[D4]
+
+
+
+  #we're getting array of strings (of each rendered cell). 
+  #need to make the array one string, and insert spaces, and static rows/columns and "\n"
+
