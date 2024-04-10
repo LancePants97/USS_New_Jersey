@@ -27,21 +27,22 @@ RSpec.describe Board do
     end
   end
 
-    it 'test same number' do
+  describe '#valid_placement?' do
+    it 'can check #same_number' do
       board = Board.new
       board.cells
       expect(board.same_number(["A1", "B1"])).to be true
       expect(board.same_number(["A1", "B2"])).to be false
     end
 
-    it 'test same letter' do
+    it 'can check #same_letter' do
       board = Board.new
       board.cells
       expect(board.same_letter(["A1", "B1"])).to be false
       expect(board.same_letter(["A1", "A2"])).to be true
     end
 
-    it 'test consecutive numbers' do
+    it 'can check #consecutive_numbers' do
       board = Board.new
       board.cells
       expect(board.consecutive_numbers(["A1", "B4"])).to be false
@@ -49,7 +50,7 @@ RSpec.describe Board do
       expect(board.consecutive_numbers(["A2", "A3"])).to be true
     end
 
-    it 'test consecutive letters' do
+    it 'can check #consecutive_letters' do
       board = Board.new
       board.cells
       expect(board.consecutive_letters(["A1", "B4"])).to be true
@@ -57,14 +58,16 @@ RSpec.describe Board do
       expect(board.consecutive_letters(["A2", "A3"])).to be false
     end
 
-  describe '#valid_placement?' do
-    it 'can invalidate ship placement based on incorrect length of ship' do
+    it 'can check #ship_length against coordinates' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
 
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be false
+
+      cruiser = Ship.new("Cruiser", 3)
+      expect(board.valid_placement?(cruiser, ["A2", "A3", "A4"])).to be true
     end
 
     it 'can invalidate ship placements based on nonconsecutive coordinates' do
