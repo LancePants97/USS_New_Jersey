@@ -30,14 +30,22 @@ class Board
   end
     
   def valid_placement?(ship, coordinates)
-    if ship_length(ship, coordinates) && same_letter(coordinates) && consecutive_numbers(coordinates) #horizontal
+    if coordinates_empty(coordinates) && ship_length(ship, coordinates) && same_letter(coordinates) && consecutive_numbers(coordinates) #horizontal
       true
-    elsif
-      ship_length(ship, coordinates) && same_number(coordinates) && consecutive_letters(coordinates) #vertical
+    elsif coordinates_empty(coordinates) && ship_length(ship, coordinates) && same_number(coordinates) && consecutive_letters(coordinates)  #vertical
       true
     else #diagonal
       false
     end
+
+    # if the cell is already full, NOT a valid coordinate
+    # if cell.empty == false
+    #   false
+    # end
+    # if coordinate is duplicated, valid_placement is false
+    # need a way to check that a coordinate isnt being used twice
+    # if board.place[coordinate] == board.place[coordinate] FALSE
+    #
   end
 
   def ship_length(ship, coordinates)
@@ -71,9 +79,13 @@ class Board
   def place(ship, coordinates)
     coordinates.each do |coordinate|
       @board_hash[coordinate].place_ship(ship)
-
-      # binding.pry
     end 
+  end
+
+  def coordinates_empty(coordinates)
+    coordinates.all? do |coordinate|
+      @board_hash[coordinate].empty?
+    end
   end
 
 end

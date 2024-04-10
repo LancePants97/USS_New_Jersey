@@ -119,7 +119,7 @@ RSpec.describe Board do
   end
 
   describe 'overlapping ships' do
-    xit 'can validate that ships do not overlap' do
+    it 'can validate that ships do not overlap' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
