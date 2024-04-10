@@ -30,10 +30,9 @@ class Board
   end
     
   def valid_placement?(ship, coordinates)
-    if ship_length(ship, coordinates) && same_letter(coordinates) && consecutive_numbers(coordinates) #horizontal
+    if coordinates_empty(coordinates) && ship_length(ship, coordinates) && same_letter(coordinates) && consecutive_numbers(coordinates) #horizontal
       true
-    elsif
-      ship_length(ship, coordinates) && same_number(coordinates) && consecutive_letters(coordinates) #vertical
+    elsif coordinates_empty(coordinates) && ship_length(ship, coordinates) && same_number(coordinates) && consecutive_letters(coordinates)  #vertical
       true
     else #diagonal
       false
@@ -68,17 +67,15 @@ class Board
     end
   end
 
+  def place(ship, coordinates)
+    coordinates.each do |coordinate|
+      @board_hash[coordinate].place_ship(ship)
+    end 
+  end
+
+  def coordinates_empty(coordinates)
+    coordinates.all? do |coordinate|
+      @board_hash[coordinate].empty?
+    end
+  end
 end
-
-  # ["A1", "A2", "A3"] #letter has to be the same && number has to be consecutive - horizontal
-  # ["A1", "B1", "C1"] #letter has to be consecutive && number has to be the same - vertical
-  # ["A1", "B2", "C3"] #letter consecutive && number consecutive NOT VALID (Diagonal) FALSE
-
-  # if letter the same (true) && number consecutive (true) THEN valid
-  # elsif number the same (true) && letter consecutive (true) THEN valid
-  # else FALSE
-
-   #look at each pair of consecutive coordinates
-    #(array of 2 strings)
-    #compare the first element 2nd char
-    #to the 2nd element 2nd char

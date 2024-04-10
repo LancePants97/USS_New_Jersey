@@ -28,34 +28,31 @@ RSpec.describe Board do
   end
 
   describe '#valid_placement?' do
+    before do
+      @board = Board.new
+      @board.cells
+    end
+
     it 'can check #same_number' do
-      board = Board.new
-      board.cells
-      expect(board.same_number(["A1", "B1"])).to be true
-      expect(board.same_number(["A1", "B2"])).to be false
+      expect(@board.same_number(["A1", "B1"])).to be true
+      expect(@board.same_number(["A1", "B2"])).to be false
     end
 
     it 'can check #same_letter' do
-      board = Board.new
-      board.cells
-      expect(board.same_letter(["A1", "B1"])).to be false
-      expect(board.same_letter(["A1", "A2"])).to be true
+      expect(@board.same_letter(["A1", "B1"])).to be false
+      expect(@board.same_letter(["A1", "A2"])).to be true
     end
 
     it 'can check #consecutive_numbers' do
-      board = Board.new
-      board.cells
-      expect(board.consecutive_numbers(["A1", "B4"])).to be false
-      expect(board.consecutive_numbers(["A1", "B1"])).to be false
-      expect(board.consecutive_numbers(["A2", "A3"])).to be true
+      expect(@board.consecutive_numbers(["A1", "B4"])).to be false
+      expect(@board.consecutive_numbers(["A1", "B1"])).to be false
+      expect(@board.consecutive_numbers(["A2", "A3"])).to be true
     end
 
     it 'can check #consecutive_letters' do
-      board = Board.new
-      board.cells
-      expect(board.consecutive_letters(["A1", "B4"])).to be true
-      expect(board.consecutive_letters(["A1", "C1"])).to be false
-      expect(board.consecutive_letters(["A2", "A3"])).to be false
+      expect(@board.consecutive_letters(["A1", "B4"])).to be true
+      expect(@board.consecutive_letters(["A1", "C1"])).to be false
+      expect(@board.consecutive_letters(["A2", "A3"])).to be false
     end
 
     it 'can check #ship_length against coordinates' do
@@ -98,32 +95,39 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true
     end
-  end
 
-  describe 'placing ships' do
-    xit 'can place ships in cells' do
-      board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A3"])
-      cell_1 = board.cells["A1"]
-      cell_2 = board.cells["A2"]
-      cell_3 = board.cells["A3"]
-      cell_1.ship
-      cell_2.ship
-      cell_3.ship
-
-      expect(cell_3.ship == cell_2.ship).to be true
-    end
-  end
-
-  describe 'overlapping ships' do
-    xit 'can validate that ships do not overlap' do
+    it 'can validate that ships do not overlap' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       board.place(cruiser, ["A1", "A2", "A3"])
       submarine = Ship.new("Submarine", 2)
 
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
+    end
+
+    it 'can validate ship placements based on validation conditions passing' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+
+      expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true
+      expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be true 
+    end
+
+  end
+
+  describe 'board.place' do
+    it 'can place ships in cells' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+
+      expect(cell_1.ship == cell_2.ship).to be true
+      expect(cell_3.ship == cell_2.ship).to be true
     end
   end
 
@@ -137,5 +141,4 @@ RSpec.describe Board do
       expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
-
 end
