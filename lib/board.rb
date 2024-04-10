@@ -37,15 +37,6 @@ class Board
     else #diagonal
       false
     end
-
-    # if the cell is already full, NOT a valid coordinate
-    # if cell.empty == false
-    #   false
-    # end
-    # if coordinate is duplicated, valid_placement is false
-    # need a way to check that a coordinate isnt being used twice
-    # if board.place[coordinate] == board.place[coordinate] FALSE
-    #
   end
 
   def ship_length(ship, coordinates)
