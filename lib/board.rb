@@ -30,17 +30,55 @@ class Board
   end
     
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length && evaluate_consecutive_numbers(coordinates)
+    if ship_length(ship, coordinates) && same_letter(coordinates) && consecutive_numbers(coordinates) #horizontal
+      true
+    elsif
+      ship_length(ship, coordinates) && same_number(coordinates) && consecutive_letters(coordinates) #vertical
+      true
+    else #diagonal
+      false
+    end
   end
 
-  def evaluate_consecutive_numbers(coordinates)
+  def ship_length(ship, coordinates)
+    ship.length == coordinates.length
+  end
+
+  def same_number(coordinates)
+    coordinates.each_cons(2).all? do |num|
+       num[0].chars[1] == num[1].chars[1]
+    end
+  end
+
+  def same_letter(coordinates)
+    coordinates.each_cons(2).all? do |letter|
+      letter[0].chars[0] == letter[1].chars[0]
+   end
+  end
+
+  def consecutive_numbers(coordinates)
     coordinates.each_cons(2).all? do |num|
       num[1].chars[1].to_i - num[0].chars[1].to_i == 1
     end
   end
 
+  def consecutive_letters(coordinates)
+    coordinates.each_cons(2).all? do |letter|
+      letter[1].ord - letter[0].ord == 1
+    end
+  end
+
 end
 
-["A1", "A2", "A3"] #letter has to be the same && number has to be consecutive
-["A1", "B1", "C1"] #letter has to be consecutive && number has to be the same
-["A1", "B2", "C3"] 
+  # ["A1", "A2", "A3"] #letter has to be the same && number has to be consecutive - horizontal
+  # ["A1", "B1", "C1"] #letter has to be consecutive && number has to be the same - vertical
+  # ["A1", "B2", "C3"] #letter consecutive && number consecutive NOT VALID (Diagonal) FALSE
+
+  # if letter the same (true) && number consecutive (true) THEN valid
+  # elsif number the same (true) && letter consecutive (true) THEN valid
+  # else FALSE
+
+   #look at each pair of consecutive coordinates
+    #(array of 2 strings)
+    #compare the first element 2nd char
+    #to the 2nd element 2nd char

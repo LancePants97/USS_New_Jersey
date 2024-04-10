@@ -27,6 +27,36 @@ RSpec.describe Board do
     end
   end
 
+    it 'test same number' do
+      board = Board.new
+      board.cells
+      expect(board.same_number(["A1", "B1"])).to be true
+      expect(board.same_number(["A1", "B2"])).to be false
+    end
+
+    it 'test same letter' do
+      board = Board.new
+      board.cells
+      expect(board.same_letter(["A1", "B1"])).to be false
+      expect(board.same_letter(["A1", "A2"])).to be true
+    end
+
+    it 'test consecutive numbers' do
+      board = Board.new
+      board.cells
+      expect(board.consecutive_numbers(["A1", "B4"])).to be false
+      expect(board.consecutive_numbers(["A1", "B1"])).to be false
+      expect(board.consecutive_numbers(["A2", "A3"])).to be true
+    end
+
+    it 'test consecutive letters' do
+      board = Board.new
+      board.cells
+      expect(board.consecutive_letters(["A1", "B4"])).to be true
+      expect(board.consecutive_letters(["A1", "C1"])).to be false
+      expect(board.consecutive_letters(["A2", "A3"])).to be false
+    end
+
   describe '#valid_placement?' do
     it 'can invalidate ship placement based on incorrect length of ship' do
       board = Board.new
@@ -48,7 +78,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["C1", "B1"])).to be false
     end
 
-    xit 'can invalidate ship placements based on diagonal' do
+    it 'can invalidate ship placements based on diagonal' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
@@ -57,7 +87,7 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["C2", "D3"])).to be false
     end
 
-    xit 'can validate ship placements based on validation conditions passing' do
+    it 'can validate ship placements based on validation conditions passing' do
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
